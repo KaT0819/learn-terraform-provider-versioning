@@ -1,5 +1,7 @@
 provider "aws" {
-  region = "us-west-2"
+  region     = "us-west-2"
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
 }
 
 resource "random_pet" "petname" {
@@ -9,7 +11,9 @@ resource "random_pet" "petname" {
 
 resource "aws_s3_bucket" "sample" {
   bucket = random_pet.petname.id
-  acl    = "public-read"
 
-  region = "us-west-2"
+  # aclは非推奨 aws_s3_bucket_aclを使用する
+  #   acl = "public-read"
+  #   acl = "private"
+  #   region = "us-west-2"
 }
